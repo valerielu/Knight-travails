@@ -10,8 +10,18 @@ class KnightPathFinder
   end
 
   def find_path(end_pos)
+    build_move_tree
+    end_node = @start.bfs(end_pos)
+    (trace_path_back(end_node).map(&:value) << @start_pos).reverse
+  end
 
-
+  def trace_path_back(end_node)
+    path = [end_node]
+    if end_node
+      path << end_node.parent
+      end_node = path[-1]
+    end
+    path
   end
 
   def build_move_tree
@@ -46,9 +56,7 @@ class KnightPathFinder
     result
   end
 
-  def inspect
-    {:pos => @start_pos, :parent => parent }.inspect
-  end
+
 
 
 
